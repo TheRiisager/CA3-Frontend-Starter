@@ -41,12 +41,10 @@ function LogIn({ login }) {
  
 }
 function LoggedIn(props) {
-  
+  const role = props.roles.includes("admin") ? "admin" : "user"
   
   useEffect(() => {
-    const roles =facade.getRoles();
-    const primaryRole = roles[0];
-    facade.fetchData(primaryRole)
+    facade.fetchData(role)
     .then(data=> props.setDataFromServer(data));
   }, [])
  
@@ -70,7 +68,9 @@ function App() {
 
   const login = (user, pass) => {
     facade.login(user,pass)
-    .then(res =>setLoggedIn(true));
+    .then((res) => {
+      setLoggedIn(true)
+    })
   } 
  
   return (
@@ -101,7 +101,7 @@ function App() {
         <Route exact path="/">
         {!loggedIn ? (<LogIn login={login} />) :
           (<div>
-            <LoggedIn dataFromServer={dataFromServer} setDataFromServer={setDataFromServer}/>
+            <LoggedIn dataFromServer={dataFromServer} setDataFromServer={setDataFromServer} roles={facade.getRoles()}/>
             <button onClick={logout}>Logout</button>
           </div>)}
         </Route>

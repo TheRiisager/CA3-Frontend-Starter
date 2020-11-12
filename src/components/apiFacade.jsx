@@ -17,15 +17,17 @@ const login = (user, password) => {
     return fetch(URL + "/api/login", options)
       .then(handleHttpErrors)
       .then(res => {
-        setToken(res.token) 
-        roles = res.roles
+        setToken(res.token)
+        roles = res.roles;
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log("An error occured! " + error))
 }
 
-const fetchData = (role) => { //TODO add
+const fetchData = (role) => { 
   const options = makeOptions("GET",true); //True add's the token
-  return fetch(URL + "/api/info/" + role, options).then(handleHttpErrors);
+  return fetch(URL + "/api/info/" + role, options)
+  .then(handleHttpErrors)
+  .catch(err => console.log(err))
 }
 
 const makeOptions= (method,addToken,body) =>{

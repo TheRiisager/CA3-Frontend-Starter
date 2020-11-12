@@ -1,5 +1,5 @@
 function makeSettings() {
-    const URL = "https://jkss.dk/ca3backend";
+    const URL = "http://localhost:8080/ca3backend_war";
 
     return {
         URL
